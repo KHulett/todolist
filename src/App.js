@@ -1,26 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class TodoList extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      todos: [],
+      currentToDo:"",
+    }
+  }
+
+  handleChange = event => {
+    console.log(event.target.value);
+    this.setState({
+      currentToDo: event.target.value
+    })
+  }
+
+  addItem = event => {
+    event.preventDefault();
+        this.setState({
+        todos: [...this.state.todos,this.state.currentToDo]
+      })
+      console.log("additem Method fired")
+    }
+    
+
+  render () {
+    return (
+      <div className='container'>
+
+        <div className='daform'>
+          <form onSubmit={this.addItem}>
+            <label htmlFor="taskName">Task Name:</label>
+            <input 
+            onChange={this.handleChange} 
+            name="taskName" 
+            type="text" 
+            placeholder="Add todo here!"/>
+            {/* value={this.currentToDo}/> */}
+            <button type="submit">Add Task</button>
+          </form>
+        </div>
+
+        <div>
+          <ul>the todo list is: 
+            <li>{this.state.todos}</li>
+          </ul> 
+        </div>
+        
+      </div>
+    )
+  }
 }
 
-export default App;
+export default TodoList;
