@@ -37,7 +37,9 @@ class TodoList extends Component{
     
 
   render () {
-    const toDoItems = this.state.todos.map((todo,index) => <li>{todo}</li>, <button onClick={this.removeItem}>git rid of it</button>)
+    
+    const toDoItems = this.state.todos.map((todo,index) =><div> <li>{todo}</li> <button onClick={this.removeItem}>git rid of it</button></div>)
+    
     return (
       <div className='container'>
 
