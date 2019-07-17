@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
 class TodoList extends Component{
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       todos: [],
       currentToDo:"",
@@ -19,13 +19,25 @@ class TodoList extends Component{
   addItem = event => {
     event.preventDefault();
         this.setState({
-        todos: [...this.state.todos,this.state.currentToDo]
+        todos:[...this.state.todos,this.state.currentToDo]
       })
       console.log("additem Method fired")
+    }
+
+    removeItem = event => {
+      let newArr = this.state.todos.indexOf(event.target.value)
+      if (newArr !== -1){
+        this.state.todos.splice(newArr, 1)
+      }
+      this.setState({
+        todos: this.state.todos,
+      })
+      console.log("removeitem Method fired")
     }
     
 
   render () {
+    const toDoItems = this.state.todos.map((todo,index) => <li>{todo}</li>, <button onClick={this.removeItem}>git rid of it</button>)
     return (
       <div className='container'>
 
@@ -37,14 +49,13 @@ class TodoList extends Component{
             name="taskName" 
             type="text" 
             placeholder="Add todo here!"/>
-            {/* value={this.currentToDo}/> */}
-            <button type="submit">Add Task</button>
+            <button onClick={this.addItem} type="submit">Add Task</button>
           </form>
         </div>
 
         <div>
-          <ul>the todo list is: 
-            <li>{this.state.todos}</li>
+          <ul>the todo list of Doom: 
+            {toDoItems}
           </ul> 
         </div>
         
