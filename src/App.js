@@ -18,27 +18,33 @@ class TodoList extends Component{
 
   addItem = event => {
     event.preventDefault();
+    // add a conditional to only fire if currentToDo has valid info and is not empty!
         this.setState({
-        todos:[...this.state.todos,this.state.currentToDo]
+        todos:[...this.state.todos,this.state.currentToDo] //to todos array add a spread(...) to the todo state then (,) add in the current todo
       })
       console.log("additem Method fired")
     }
 
     removeItem = event => {
-      let newArr = this.state.todos.indexOf(event.target.value)
-      if (newArr !== -1){
-        this.state.todos.splice(newArr, 1)
-      }
+      const clearStr = this.state.todos.filter((item, index) =>{
+      return index !== event.target.index
+    });
       this.setState({
-        todos: this.state.todos,
+        todos: clearStr
       })
       console.log("removeitem Method fired")
+      console.log(event)
     }
     
 
   render () {
     
-    const toDoItems = this.state.todos.map((todo,index) =><div> <li>{todo}</li> <button onClick={this.removeItem}>git rid of it</button></div>)
+    var toDoItems = this.state.todos.map((todo,index) => 
+    <ul>
+      <li key={index}>{todo}</li> 
+      <button onClick={this.removeItem}>git rid of it</button>
+      </ul>
+    );
     
     return (
       <div className='container'>
