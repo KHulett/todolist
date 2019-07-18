@@ -25,26 +25,20 @@ class TodoList extends Component{
       console.log("additem Method fired")
     }
 
-    removeItem = event => {
-      const clearStr = this.state.todos.filter((item, index) =>{
-      return index !== event.target.index
-    });
+    removeItem = indexToDelete => {
+      const clearStr = this.state.todos.filter((todo,index) =>
+        index !== indexToDelete
+      );
       this.setState({
         todos: clearStr
       })
       console.log("removeitem Method fired")
-      console.log(event)
     }
     
 
   render () {
     
-    var toDoItems = this.state.todos.map((todo,index) => 
-    <ul>
-      <li key={index}>{todo}</li> 
-      <button onClick={this.removeItem}>git rid of it</button>
-      </ul>
-    );
+    // var toDoItems = 
     
     return (
       <div className='container'>
@@ -62,9 +56,12 @@ class TodoList extends Component{
         </div>
 
         <div>
-          <ul>the todo list of Doom: 
-            {toDoItems}
-          </ul> 
+          {this.state.todos.map((todo,index) => 
+          <ul>
+            <li key={index}>{todo}</li> 
+            <button onClick={()=>this.removeItem(index)}>git rid of it</button>
+          </ul>
+          )}
         </div>
         
       </div>
